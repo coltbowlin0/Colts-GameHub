@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Colt 45's Game Hub</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://media.gq.com/photos/5fbd3397fff3e5e56de13fc1/16:9/w_2240,c_limit/Riz_Playlist.jpg">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #222;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      padding: 20px;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* Floating search bar */
+    .search-container {
+      position: fixed;
+      top: 100px; /* below title */
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      background: #333;
+      border-radius: 50px;
+      padding: 5px 10px;
+      width: 300px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      z-index: 1000;
+      transition: width 0.3s ease;
+    }
+    .search-container.expanded {
+      width: 400px;
+    }
+    .search-container input {
+      flex: 1;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 50px;
+      outline: none;
+      background: transparent;
+      color: white;
+      font-size: 16px;
+      transition: width 0.3s ease;
+    }
+    .search-container button {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      margin-left: 5px;
+      transition: transform 0.3s;
+    }
+    .search-container button:hover {
+      color: #1e90ff;
+      transform: scale(1.2);
+    }
+
+    .game-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 120px 20px 20px 20px; /* top padding for search bar */
+      align-items: flex-start; /* fix row stretching issue */
+    }
+
+    .game-card {
+      background: #333;
+      padding: 20px;
+      border-radius: 10px;
+      width: 200px;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* content stays at top */
+    }
+    .game-card:hover {
+      background: #555;
+      transform: scale(1.05);
+    }
+    a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Colt 45's Game Hub</h1>
+
+  <!-- Floating search bar -->
+  <div class="search-container" id="searchContainer">
+    <input type="text" id="gameSearch" placeholder="Search for a game...">
+    <button id="searchBtn">🔍</button>
+  </div>
+
+  <div class="game-list" id="gameList">
+    <div class="game-card"><a href="Dino.html" target="_blank">Chrome Dino</a></div>
+    <div class="game-card"><a href="FridayNightFunkin.html" target="_blank">Friday Night Funkin</a></div>
+    <div class="game-card"><a href="otheridlebreakout.html" target="_blank">Breakshoot Idle</a></div>
+    <div class="game-card"><a href="BouncyMotors.html" target="_blank">Bouncy Motors</a></div>
+    <div class="game-card"><a href="crusher.html" target="_blank">Crusher Clicker</a></div>
+    <div class="game-card"><a href="SliceMasters.html" target="_blank">Slice Masters</a></div>
+    <div class="game-card"><a href="DriftBoss.html" target="_blank">Drift Boss</a></div>
+    <div class="game-card"><a href="TinyFishing.html" target="_blank">Tiny Fishing</a></div>
+    <div class="game-card"><a href="Webecomewhatweabehold.html" target="_blank">We become what We behold</a></div>
+    <div class="game-card"><a href="Diepio.html" target="_blank">Diep.Io</a></div>
+    <div class="game-card"><a href="slope.html" target="_blank">Slope Plus</a></div>
+    <div class="game-card"><a href="Minato.html" target="_blank">Minato</a></div>
+    <div class="game-card"><a href="highwayracer.html" target="_blank">Highway Racer</a></div>
+    <div class="game-card"><a href="EscapeRoad.html" target="_blank">Escape Road</a></div>
+    <div class="game-card"><a href="polytrack.html" target="_blank">Poly Track</a></div>
+    <div class="game-card"><a href="TimeBullet.html" target="_blank">Time Bullet</a></div>
+    <div class="game-card"><a href="StickMenParkor.html" target="_blank">Stick Men Parkour</a></div>
+    <div class="game-card"><a href="BlockBlast.html" target="_blank">Block Blast</a></div>
+    <div class="game-card"><a href="BasketballRandomPro.html" target="_blank">Basketball Random Pro 2P</a></div>
+    <div class="game-card"><a href="DriftHunters.html" target="_blank">Drift Hunters</a></div>
+    <div class="game-card"><a href="taptapshots.html" target="_blank">Tap Tap Shots</a></div>
+    <div class="game-card"><a href="SoccerRandomPro.html" target="_blank">Soccer Random Pro 2P</a></div>
+    <div class="game-card"><a href="Bloxorz.html" target="_blank">Bloxorz</a></div>
+    <div class="game-card"><a href="WorldsHardestGame.html" target="_blank">World's Hardest Game</a></div>
+    <div class="game-card"><a href="rooftopsniper.html" target="_blank">Rooftop Snipers</a></div>
+    <div class="game-card"><a href="drunkenduel2.html" target="_blank">Drunken Duel 2</a></div>
+    <div class="game-card"><a href="theimpossiblequiz.html" target="_blank">The Impossible Quiz</a></div>
+    <div class="game-card"><a href="idlebreakout.html" target="_blank">Idle Breakout</a></div>
+    <div class="game-card"><a href="flappybrid.html" target="_blank">Flappy Bird</a></div>
+    <div class="game-card"><a href="wheeliebike.html" target="_blank">Wheelie Bike</a></div>
+    <div class="game-card"><a href="Link.html" target="_blank">Link</a></div>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('gameSearch');
+    const gameList = document.getElementById('gameList');
+    const gameCards = gameList.getElementsByClassName('game-card');
+    const searchContainer = document.getElementById('searchContainer');
+    const searchBtn = document.getElementById('searchBtn');
+
+    function filterGames() {
+      const filter = searchInput.value.toLowerCase();
+      for (let i = 0; i < gameCards.length; i++) {
+        const a = gameCards[i].getElementsByTagName('a')[0];
+        const txtValue = a.textContent || a.innerText;
+        gameCards[i].style.display = txtValue.toLowerCase().includes(filter) ? "" : "none";
+      }
+    }
+
+    searchInput.addEventListener('keyup', filterGames);
+
+    // Animate the search bar
+    searchBtn.addEventListener('click', () => {
+      searchContainer.classList.toggle('expanded');
+      searchInput.focus();
+    });
+  </script>
+</body>
+</html>
