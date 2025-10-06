@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -24,11 +24,30 @@
       text-align: center;
     }
 
-    /* Game iframe takes remaining space */
-    iframe {
-      border: none;
+    /* Game iframe container */
+    #iframe-container {
       flex: 1;
       width: 100%;
+      display: flex;
+      position: relative;
+    }
+
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .error-message {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      color: white;
+      font-size: 18px;
+      text-align: center;
+      background-color: #222;
     }
 
     footer {
@@ -38,7 +57,6 @@
       font-size: 14px;
     }
 
-    /* Optional: style for search input inside CSE */
     .gcse-searchbox input.gsc-input {
       width: 80%;
       padding: 8px;
@@ -62,11 +80,62 @@
 </head>
 <body>
 
-  <!-- Search bar at top -->
   <div class="search-container">
     <div class="gcse-search"></div>
   </div>
-  <!-- Footer -->
+
+  <div id="iframe-container"></div>
+
   <footer>Licensed by Colt 45's Game Hub</footer>
+
+  <script>
+    const iframeContainer = document.getElementById('iframe-container');
+
+    function createIframe(url) {
+      // Remove old iframe or error message
+      while (iframeContainer.firstChild) {
+        iframeContainer.removeChild(iframeContainer.firstChild);
+      }
+
+      // Create a new iframe
+      const iframe = document.createElement('iframe');
+      iframe.src = url;
+      iframe.allowFullscreen = true;
+
+      // Detect if the iframe fails to load (most cross-origin blocks)
+      let fallbackTimeout = setTimeout(() => {
+        if (!iframe.contentDocument || !iframe.contentDocument.body || iframe.contentDocument.body.innerHTML.length === 0) {
+          iframeContainer.removeChild(iframe);
+          const errorDiv = document.createElement('div');
+          errorDiv.className = 'error-message';
+          errorDiv.innerText = "This page cannot be displayed in the iframe.\nClick the link to open in a new tab instead.";
+          iframeContainer.appendChild(errorDiv);
+        }
+      }, 2000); // 2 seconds to try loading
+
+      iframe.onerror = () => {
+        clearTimeout(fallbackTimeout);
+        iframeContainer.removeChild(iframe);
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.innerText = "This page cannot be displayed in the iframe.\nClick the link to open in a new tab instead.";
+        iframeContainer.appendChild(errorDiv);
+      };
+
+      iframeContainer.appendChild(iframe);
+    }
+
+    // Intercept all <a> clicks
+    document.addEventListener('click', function(e) {
+      const target = e.target;
+      if(target.tagName === 'A') {
+        const href = target.getAttribute('href');
+        if(href && !href.startsWith('javascript:') && !href.startsWith('#')) {
+          e.preventDefault(); // prevent default
+          createIframe(href);
+        }
+      }
+    });
+  </script>
 </body>
 </html>
