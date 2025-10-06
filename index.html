@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Colt 45's Game Hub</title>
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://media.gq.com/photos/5fbd3397fff3e5e56de13fc1/16:9/w_2240,c_limit/Riz_Playlist.jpg">
   <style>
     body {
@@ -14,31 +13,42 @@
       margin: 0;
       padding: 0;
     }
+
+    /* Header fixed at top */
     h1 {
-      padding: 20px;
-      z-index: 1;
-      position: relative;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #222;
+      padding: 20px 0;
+      margin: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
-    /* Floating search bar */
+    /* Search bar fixed just below header */
     .search-container {
       position: fixed;
-      top: 100px; /* below title */
+      top: 75px; /* just below header */
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       align-items: center;
-      background: #333;
+      background: rgba(51, 51, 51, 0.8); /* semi-transparent */
+      backdrop-filter: blur(10px); /* blur effect */
       border-radius: 50px;
       padding: 5px 10px;
       width: 300px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      z-index: 1000;
+      z-index: 999;
       transition: width 0.3s ease;
     }
+
     .search-container.expanded {
       width: 400px;
     }
+
     .search-container input {
       flex: 1;
       padding: 10px 15px;
@@ -48,8 +58,8 @@
       background: transparent;
       color: white;
       font-size: 16px;
-      transition: width 0.3s ease;
     }
+
     .search-container button {
       background: transparent;
       border: none;
@@ -59,18 +69,20 @@
       margin-left: 5px;
       transition: transform 0.3s;
     }
+
     .search-container button:hover {
       color: #1e90ff;
       transform: scale(1.2);
     }
 
+    /* Game grid spacing */
     .game-list {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
-      padding: 120px 20px 20px 20px; /* top padding for search bar */
-      align-items: flex-start; /* fix row stretching issue */
+      padding: 160px 20px 20px 20px; /* top padding so content starts below fixed header+search bar */
+      align-items: flex-start;
     }
 
     .game-card {
@@ -82,12 +94,14 @@
       transition: 0.2s;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start; /* content stays at top */
+      justify-content: flex-start;
     }
+
     .game-card:hover {
       background: #555;
       transform: scale(1.05);
     }
+
     a {
       color: white;
       text-decoration: none;
@@ -99,7 +113,7 @@
 <body>
   <h1>Colt 45's Game Hub</h1>
 
-  <!-- Floating search bar -->
+  <!-- Fixed search bar under header -->
   <div class="search-container" id="searchContainer">
     <input type="text" id="gameSearch" placeholder="Search for a game...">
     <button id="searchBtn">🔍</button>
@@ -142,6 +156,11 @@
     <div class="game-card"><a href="PlanetSmash.html" target="_blank">Planet Smash</a></div>
     <div class="game-card"><a href="numbergame.html" target="_blank">2048</a></div>
     <div class="game-card"><a href="trafficrider.html" target="_blank">Traffic Rider</a></div>
+    <div class="game-card"><a href="Sudoku.html" target="_blank">Sudoku</a></div>
+    <div class="game-card"><a href="PixelZombies.html" target="_blank">Pixel Zombies</a></div>
+    <div class="game-card"><a href="ShadeShuffle.html" target="_blank">Shade Shuffle</a></div>
+    <div class="game-card"><a href="trickytrip.html" target="_blank">Tricky Trip</a></div>
+    <div class="game-card"><a href="Dunkshot.html" target="_blank">Dunk Shot</a></div>
   </div>
 
   <script>
@@ -162,7 +181,6 @@
 
     searchInput.addEventListener('keyup', filterGames);
 
-    // Animate the search bar
     searchBtn.addEventListener('click', () => {
       searchContainer.classList.toggle('expanded');
       searchInput.focus();
