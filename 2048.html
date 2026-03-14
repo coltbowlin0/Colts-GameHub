@@ -26,5 +26,26 @@
 				frame.requestFullscreen();
 			};
 		</script>
+		<!-- 1. The container where the game will appear -->
+		<div id="game-container" style="width: 800px; height: 600px;"></div>
+
+		<!-- 2. Load the helper script first -->
+		<script src="embed/embed.js"></script>
+
+		<!-- 3. Call the function to start the emulator -->
+		<script>
+		var container = document.getElementById('game-container');
+		
+		// Use your renamed file here
+		var path = 'webretro.html'; 
+		
+		var options = {
+			core: 'mgba',           // Change this to your preferred console core
+			rom: 'my-game-file.gba' // The name of your ROM file
+		};
+
+		// This starts the magic
+		webretroEmbed(container, path, options);
+		</script>
 	</body>
 </html>
