@@ -1,88 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="https://media.gq.com/photos/5fbd3397fff3e5e56de13fc1/16:9/w_2240,c_limit/Riz_Playlist.jpg">
-  <meta charset="UTF-8">
-  <title>Pac-Man</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: black;
-      display: flex;
-      flex-direction: column;
-    }
-    iframe {
-      border: none;
-      flex: 1; /* Takes all available space above the footer */
-    }
-    footer {
-      text-align: center;
-      color: white;
-      background-color: #111;
-      padding: 5px;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://media.gq.com/photos/5fbd3397fff3e5e56de13fc1/16:9/w_2240,c_limit/Riz_Playlist.jpg">
+    <title>Pac-Man</title>
+    <style>
+        /* 1. Make the basic page container fill the entire screen */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Stops the whole page from scrolling */
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 2. Header styling */
+        header {
+            text-align: center;
+            padding: 10px;
+            background: #111;
+            border-bottom: 1px solid #333;
+        }
+
+        h1 { margin: 0 0 10px 0; font-size: 24px; }
+
+        /* 3. The Magic Container: flex-grow (flex: 1) makes it fill the gap */
+        #game-container {
+            flex: 1; 
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        /* 4. Ensure the iframe fills its parent container */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #111;
+            padding: 8px;
+            font-size: 14px;
+            border-top: 1px solid #333;
+        }
+
+        button {
+            padding: 5px 15px;
+            cursor: pointer;
+            background: #f0db4f;
+            border: none;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+    </style>
 </head>
-	<!DOCTYPE html>
-<html>
-<head>
-  <link rel="icon" type="image/png" href="https://media.gq.com/photos/5fbd3397fff3e5e56de13fc1/16:9/w_2240,c_limit/Riz_Playlist.jpg">
-  <meta charset="UTF-8">
-  <title>Pac-Man</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: black;
-      display: flex;
-      flex-direction: column;
-    }
-    iframe {
-      border: none;
-      flex: 1; /* Takes all available space above the footer */
-    }
-    footer {
-      text-align: center;
-      color: white;
-      background-color: #111;
-      padding: 5px;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-    }
-  </style>
-</head>
-	<body style="display: flex; flex-direction: column; height: 100vh; margin: 0;">
-    <header style="text-align: center; color: white; padding: 10px;">
-        <h1 style="margin: 0;">Pac-Man</h1>
-        <input type="button" id="fullscreen" value="Fullscreen">
+<body>
+
+    <header>
+        <h1>Pac-Man</h1>
+        <button id="fullscreen-btn">Toggle Fullscreen</button>
     </header>
 
-    <div id="game-container" style="flex: 1; width: 100%; position: relative;"></div>
+    <div id="game-container"></div>
 
     <footer>Licensed by Colt 45's Game Hub</footer>
 
-    <script src="embed.js"></script>
-    <script src="embed/embed.js"></script>
     <script>
+        // Updated JavaScript Function
+        function webretroEmbed(node, path, queries) {
+            var frame = document.createElement("iframe");
+            
+            // Force the iframe to fill the container
+            frame.style.width = "100%";
+            frame.style.height = "100%";
+            frame.style.border = "none";
+            frame.id = "game-frame";
+
+            // Resolve ROM path
+            if (queries.rom) {
+                var link = document.createElement("a");
+                // Checks if it's a full URL; if not, looks in /roms/ folder
+                link.href = (/^(https?:)?\/\//i).test(queries.rom) ? queries.rom : "roms/" + queries.rom;
+                queries.rom = link.href;
+            }
+
+            // Build URL with queries
+            var queryString = Object.entries(queries)
+                .map(i => i.map(val => val && encodeURIComponent(val)))
+                .map(i => i[1] ? i.join("=") : i[0])
+                .join("&");
+
+            frame.src = path + "?" + queryString;
+            
+            node.appendChild(frame);
+
+            // AUTO-FOCUS: Click the game container to focus the keyboard
+            node.addEventListener('mousedown', function() {
+                frame.focus();
+            });
+
+            return frame;
+        }
+
+        // --- START THE GAME ---
         var container = document.getElementById('game-container');
-        var path = 'webretro.html'; 
+        var path = 'webretro.html'; // Ensure this file exists in your directory
+        
         var options = {
-            core: 'autodetect',
-            rom: 'pac-man.nes'
+            core: 'autodetect', 
+            rom: 'pac-man.nes'  // Ensure this file is in your /roms/ folder
         };
 
-        // Initialize the emulator
         webretroEmbed(container, path, options);
+
+        // --- FULLSCREEN BUTTON LOGIC ---
+        document.getElementById('fullscreen-btn').addEventListener('click', function() {
+            var elem = document.getElementById('game-container');
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        });
     </script>
+
 </body>
-</html>
 </html>
