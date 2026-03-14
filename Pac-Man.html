@@ -5,6 +5,20 @@
   <meta charset="UTF-8">
   <title>Pac-Man</title>
   <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+    }
+    iframe {
+      border: none;
+      flex: 1; /* Takes all available space above the footer */
+    }
     footer {
       text-align: center;
       color: white;
@@ -24,7 +38,7 @@
 		<br>
 		<script type="text/javascript" src="embed.js"></script>
 		<!-- 1. The container where the game will appear -->
-		<div id="game-container" style="width: 800px; height: 600px;"></div>
+		<div id="game-container" style="flex: 1;"></div>
 
 		<!-- 2. Load the helper script first -->
 		<script src="embed/embed.js"></script>
@@ -37,7 +51,7 @@
 		var path = 'webretro.html'; 
 		
 		var options = {
-			core: 'nestopia',           // Change this to your preferred console core
+			core: 'autodetect',           // Change this to your preferred console core
 			rom: 'pac-man.nes' // The name of your ROM file
 		};
 
