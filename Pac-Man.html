@@ -20,7 +20,6 @@
             flex-direction: column;
         }
 
-        /* 2. Header styling */
         header {
             text-align: center;
             padding: 10px;
@@ -30,7 +29,6 @@
 
         h1 { margin: 0 0 10px 0; font-size: 24px; }
 
-        /* 3. The Magic Container: flex-grow (flex: 1) makes it fill the gap */
         #game-container {
             flex: 1; 
             width: 100%;
@@ -40,7 +38,6 @@
             background-color: #000;
         }
 
-        /* 4. Ensure the iframe fills its parent container */
         iframe {
             width: 100%;
             height: 100%;
@@ -77,25 +74,20 @@
     <footer>Licensed by Colt 45's Game Hub</footer>
 
     <script>
-        // Updated JavaScript Function
         function webretroEmbed(node, path, queries) {
             var frame = document.createElement("iframe");
-            
-            // Force the iframe to fill the container
+
             frame.style.width = "100%";
             frame.style.height = "100%";
             frame.style.border = "none";
             frame.id = "game-frame";
 
-            // Resolve ROM path
             if (queries.rom) {
                 var link = document.createElement("a");
-                // Checks if it's a full URL; if not, looks in /roms/ folder
                 link.href = (/^(https?:)?\/\//i).test(queries.rom) ? queries.rom : "roms/" + queries.rom;
                 queries.rom = link.href;
             }
 
-            // Build URL with queries
             var queryString = Object.entries(queries)
                 .map(i => i.map(val => val && encodeURIComponent(val)))
                 .map(i => i[1] ? i.join("=") : i[0])
@@ -105,7 +97,6 @@
             
             node.appendChild(frame);
 
-            // AUTO-FOCUS: Click the game container to focus the keyboard
             node.addEventListener('mousedown', function() {
                 frame.focus();
             });
@@ -113,18 +104,16 @@
             return frame;
         }
 
-        // --- START THE GAME ---
         var container = document.getElementById('game-container');
-        var path = 'webretro.html'; // Ensure this file exists in your directory
+        var path = 'webretro.html'; 
         
         var options = {
             core: 'autodetect', 
-            rom: 'pac-man.nes'  // Ensure this file is in your /roms/ folder
+            rom: 'pac-man.nes'  // File is in your /roms/ folder
         };
 
         webretroEmbed(container, path, options);
 
-        // --- FULLSCREEN BUTTON LOGIC ---
         document.getElementById('fullscreen-btn').addEventListener('click', function() {
             var elem = document.getElementById('game-container');
             if (elem.requestFullscreen) {
