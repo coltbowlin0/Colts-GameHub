@@ -60,38 +60,29 @@
     }
   </style>
 </head>
-	<body style="justify-content: center; display: flex; flex: 1;">
-		<h1>Pac-Man</h1>
-		<div id="webretro-container"></div>
-		<br>
-		<input type="button" id="fullscreen" value="Fullscreen">
-		<br>
-		<br>
-		<script type="text/javascript" src="embed.js"></script>
-		<!-- 1. The container where the game will appear -->
-		<div id="game-container" style="flex: 1;"></div>
+	<body style="display: flex; flex-direction: column; height: 100vh; margin: 0;">
+    <header style="text-align: center; color: white; padding: 10px;">
+        <h1 style="margin: 0;">Pac-Man</h1>
+        <input type="button" id="fullscreen" value="Fullscreen">
+    </header>
 
-		<!-- 2. Load the helper script first -->
-		<script src="embed/embed.js"></script>
+    <div id="game-container" style="flex: 1; width: 100%; position: relative;"></div>
 
-		<!-- 3. Call the function to start the emulator -->
-		<script>
-		var container = document.getElementById('game-container');
-		
-		// Use your renamed file here
-		var path = 'webretro.html'; 
-		
-		var options = {
-			core: 'autodetect',           // Change this to your preferred console core
-			rom: 'pac-man.nes' // The name of your ROM file
-		};
+    <footer>Licensed by Colt 45's Game Hub</footer>
 
-		// This starts the magic
-		
-		webretroEmbed(container, path, options);
-		</script>
+    <script src="embed.js"></script>
+    <script src="embed/embed.js"></script>
+    <script>
+        var container = document.getElementById('game-container');
+        var path = 'webretro.html'; 
+        var options = {
+            core: 'autodetect',
+            rom: 'pac-man.nes'
+        };
 
-  	<footer>Licensed by Colt 45's Game Hub</footer>
-	</body>
+        // Initialize the emulator
+        webretroEmbed(container, path, options);
+    </script>
+</body>
 </html>
 </html>
